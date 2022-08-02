@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RegisterDto } from 'src/auth/register.dto';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
+import { response } from 'express';
 
 @Injectable()
 export class UsersService {
@@ -24,9 +25,20 @@ export class UsersService {
     return this.usersRepository.findOneBy({ email: email });
   }
 
-  async create(registerDto: RegisterDto): Promise<User> {
-    registerDto.password = await bcrypt.hash(registerDto.password, 10);
+  test(){
+    console.log("aici")
+  }
 
+  async create(registerDto: RegisterDto) {
+    registerDto.password = await bcrypt.hash(registerDto.password, 10);
+    // await this.findByEmail(registerDto.email).then( (response) => {
+    //   if(response !== null){
+    //     throw new HttpException({
+    //       status: HttpStatus.FORBIDDEN,
+    //       error: 'Email is duplicated',
+    //     }, HttpStatus.FORBIDDEN);
+    //   }
+    // });
     return this.usersRepository.save(registerDto);
   }
 
