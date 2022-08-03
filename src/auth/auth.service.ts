@@ -12,7 +12,7 @@ export class AuthService {
 
     const isPasswordValid = await bcrypt.compare(pass, user.password);
 
-    console.log(isPasswordValid);
+    // console.log(isPasswordValid);
 
     if (user && isPasswordValid) {
       const { password, ...result } = user;
@@ -21,12 +21,15 @@ export class AuthService {
     return null;
   }
 
+
   async login(user: any) {
+    
     const payload = { email: user.email, sub: user.userId };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
 
-  async 
+
+
 }

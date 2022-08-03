@@ -17,6 +17,6 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ type: "json", nullable: null })
+  @Column({ type: "json", nullable: true})
   preferences: string[];
 }

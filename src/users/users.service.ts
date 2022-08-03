@@ -32,6 +32,7 @@ export class UsersService {
 
   async create(registerDto: RegisterDto) {
     registerDto.password = await bcrypt.hash(registerDto.password, 10);
+    registerDto.passwordConfirmation = registerDto.password;
     // await this.findByEmail(registerDto.email).then( (response) => {
     //   if(response !== null){
     //     throw new HttpException({

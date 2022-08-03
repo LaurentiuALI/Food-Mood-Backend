@@ -1,21 +1,26 @@
-import { IsEmail, IsNotEmpty, Validate } from 'class-validator';
+import { IsEmail, isNotEmpty, IsNotEmpty, Length, Matches, MaxLength, MinLength, Validate } from 'class-validator';
 import { IsEmailUnique } from 'src/common/exceptions/IsEmailUnique';
+import { Match } from 'src/common/exceptions/Match';
 
 export class RegisterDto {
-    @IsNotEmpty()
+    @IsNotEmpty({message:"Please enter a name."})
     name: string;
 
+    @IsEmail({},{message:"Please enter a valid email address."})
     @Validate(IsEmailUnique)
-    @IsEmail()
     email: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({message:"Please enter a valid phone number."})
     phoneNumber: string;
 
+
+    @Length(6,16,{message:"Your password must be between 6-16 characters long."})
+    // @MinLength(6,{message:"Password must be between 6-16 characters."})
+    // @MaxLength(16,{message:"Password must be between 6-16 characters."})
     @IsNotEmpty()   
     password: string;
 
-    @IsNotEmpty()  
-    // @Match("password") 
+    @IsNotEmpty({message: "This does not match the password entered above."})
+    @Match('password') 
     passwordConfirmation: string;
 }

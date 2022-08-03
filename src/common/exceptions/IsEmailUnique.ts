@@ -12,7 +12,7 @@ export class IsEmailUnique implements ValidatorConstraintInterface {
       return await this.usersService.findByEmail(email) === null;
     }
     defaultMessage?(validationArguments?: ValidationArguments): string {
-        return `${validationArguments.property} ${validationArguments.value} is already taken.`;
+        return `This email is already registered.`;
     }
 }
 
