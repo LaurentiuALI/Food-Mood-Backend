@@ -14,4 +14,8 @@ export class RegisterDto {
 
     @IsNotEmpty()   
     password: string;
+
+    @IsNotEmpty()  
+    // @Match("password") 
+    passwordConfirmation: string;
 }

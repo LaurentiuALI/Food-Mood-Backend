@@ -3,20 +3,13 @@ import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface 
 import { UsersService } from "src/users/users.service";
 
 
-@ValidatorConstraint({ name: 'emailUnique', async: true })
+@ValidatorConstraint({ name: 'emailUnique', async: false})
 @Injectable()
 export class IsEmailUnique implements ValidatorConstraintInterface {
     constructor(private usersService: UsersService) {}
 
-    async validate(email: string){
-      console.log("AM INTRAT ");
-      try{
-        await this.usersService.findByEmail(email);
-      } catch(e){
-        console.log(e);
-        return false;
-      }
-      return true;
+    async validate(email: string):Promise<boolean>{
+      return await this.usersService.findByEmail(email) === null;
     }
     defaultMessage?(validationArguments?: ValidationArguments): string {
         return `${validationArguments.property} ${validationArguments.value} is already taken.`;
