@@ -7,6 +7,7 @@ import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtSecretKey } from '../common/config/auth.config';
 import { JwtStrategy } from './jwt.strategy';
+import { IsEmailUnique } from 'src/common/exceptions/IsEmailUnique';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { JwtStrategy } from './jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, IsEmailUnique],
 })
 export class AuthModule {}
