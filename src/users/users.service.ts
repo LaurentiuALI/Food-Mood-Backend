@@ -26,13 +26,9 @@ export class UsersService {
     return this.usersRepository.findOneBy({ email: email });
   }
 
-  test(){
-    console.log("aici")
-  }
 
   async create(registerDto: RegisterDto) {
     registerDto.password = await bcrypt.hash(registerDto.password, 10);
-    registerDto.passwordConfirmation = registerDto.password;
     // await this.findByEmail(registerDto.email).then( (response) => {
     //   if(response !== null){
     //     throw new HttpException({
@@ -42,6 +38,11 @@ export class UsersService {
     //   }
     // });
     return this.usersRepository.save(registerDto);
+  }
+
+  async updatePreferences(email: string, preferences: string[]) {
+    // UPDATE users SET preferences=preferences WHERE id=userId
+    return await this.usersRepository.update({ email: email }, { preferences: preferences });
   }
 
   async remove(id: string): Promise<void> {

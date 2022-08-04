@@ -9,7 +9,8 @@ export class IsEmailUnique implements ValidatorConstraintInterface {
     constructor(private usersService: UsersService) {}
 
     async validate(email: string):Promise<boolean>{
-      return await this.usersService.findByEmail(email) === null;
+    
+      return (await this.usersService.findByEmail(email) === null) || email === undefined;
     }
     defaultMessage?(validationArguments?: ValidationArguments): string {
         return `This email is already registered.`;

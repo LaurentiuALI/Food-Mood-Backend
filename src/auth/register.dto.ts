@@ -14,10 +14,7 @@ export class RegisterDto {
     phoneNumber: string;
 
 
-    @Length(6,16,{message:"Your password must be between 6-16 characters long."})
-    // @MinLength(6,{message:"Password must be between 6-16 characters."})
-    // @MaxLength(16,{message:"Password must be between 6-16 characters."})
-    @IsNotEmpty()   
+    @Length(6,16,{message:"Your password must be between 6-16 characters long."})   
     password: string;
 
     @IsNotEmpty({message: "This does not match the password entered above."})
